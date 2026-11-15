@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Libris library management dashboard">
+  <title>Libris | Library Management</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#dashboard" data-view="dashboard">
+        <span class="brand-mark">L</span>
+        <span><strong>Libris</strong><small>Library operations</small></span>
+      </a>
+      <div class="nav-label">Workspace</div>
+      <nav class="main-nav" aria-label="Primary navigation">
+        <button class="nav-item active" data-view="dashboard"><span class="nav-icon">+</span><span>Overview</span></button>
+        <button class="nav-item" data-view="catalog"><span class="nav-icon">B</span><span>Catalog</span></button>
+        <button class="nav-item" data-view="members"><span class="nav-icon">M</span><span>Members</span></button>
+        <button class="nav-item" data-view="loans"><span class="nav-icon">L</span><span>Loans</span><span class="nav-count" id="loanNavCount">0</span></button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="tip-card">
+          <span class="tip-icon">i</span>
+          <div><strong>Keep it moving</strong><p>Return books on time to keep the shelves flowing.</p></div>
+        </div>
+        <div class="profile"><div class="avatar avatar-ink">LB</div><div><strong>Library desk</strong><small>Administrator</small></div><button class="more-button" aria-label="More options">...</button></div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <button class="mobile-menu" id="mobileMenu" aria-label="Open menu">=</button>
+        <div class="breadcrumb"><span>Library</span><b>/</b><strong id="breadcrumbCurrent">Overview</strong></div>
+        <div class="top-actions"><button class="icon-button" id="resetData" title="Reset demo data">R</button><button class="avatar avatar-sage" title="Administrator profile">LB</button></div>
+      </header>
+
+      <section class="view active-view" id="dashboardView">
+        <div class="page-heading"><div><p class="eyebrow">Monday, September 21, 2026</p><h1>Good morning, Librarian.</h1><p class="subheading">Here's what is happening across your library today.</p></div><button class="button button-primary" data-action="checkout"><span>+</span> Check out a book</button></div>
+        <div class="stats-grid">
+          <article class="stat-card stat-cream"><div class="stat-top"><span>Total books</span><span class="stat-symbol">B</span></div><strong id="totalBooks">0</strong><small><b id="availableBooks">0</b> available on shelf</small></article>
+          <article class="stat-card stat-sage"><div class="stat-top"><span>Active members</span><span class="stat-symbol">M</span></div><strong id="totalMembers">0</strong><small>registered readers</small></article>
+          <article class="stat-card stat-blue"><div class="stat-top"><span>On loan</span><span class="stat-symbol">L</span></div><strong id="activeLoans">0</strong><small>books currently out</small></article>
+          <article class="stat-card stat-coral"><div class="stat-top"><span>Overdue</span><span class="stat-symbol">!</span></div><strong id="overdueLoans">0</strong><small>need your attention</small></article>
+        </div>
+        <div class="dashboard-grid">
+          <section class="panel activity-panel"><div class="panel-heading"><div><p class="eyebrow">Recent activity</p><h2>Latest loans</h2></div><button class="text-button" data-view="loans">View all <span>-></span></button></div><div class="activity-list" id="recentActivity"></div></section>
+          <section class="panel shelf-panel"><div class="panel-heading"><div><p class="eyebrow">Collection health</p><h2>At a glance</h2></div></div><div class="health-chart"><div class="donut" id="donutChart"><div><strong id="donutPercent">0%</strong><span>available</span></div></div><div class="legend"><div><i class="dot dot-sage"></i><span>Available</span><strong id="availableLegend">0</strong></div><div><i class="dot dot-blue"></i><span>On loan</span><strong id="loanLegend">0</strong></div><div><i class="dot dot-muted"></i><span>Total collection</span><strong id="totalLegend">0</strong></div></div></div><button class="soft-action" data-view="catalog">Browse full catalog <span>-></span></button></section>
+        </div>
+        <section class="panel quick-panel"><div class="panel-heading"><div><p class="eyebrow">Shortcuts</p><h2>Common actions</h2></div></div><div class="shortcut-grid"><button data-action="add-book"><span class="shortcut-icon shortcut-yellow">+</span><span><strong>Add a new book</strong><small>Grow the collection</small></span><b>-></b></button><button data-action="add-member"><span class="shortcut-icon shortcut-green">+</span><span><strong>Register a member</strong><small>Welcome a new reader</small></span><b>-></b></button><button data-view="loans"><span class="shortcut-icon shortcut-blue">L</span><span><strong>Review active loans</strong><small>Track what is out</small></span><b>-></b></button></div></section>
+      </section>
+
+      <section class="view" id="catalogView"><div class="page-heading compact"><div><p class="eyebrow">Collection</p><h1>Book catalog</h1><p class="subheading">Search, manage, and keep your shelves up to date.</p></div><button class="button button-primary" data-action="add-book"><span>+</span> Add book</button></div><section class="panel table-panel"><div class="table-toolbar"><div class="search-box"><span>/</span><input id="catalogSearch" type="search" placeholder="Search title, author, ISBN, or ID"></div><select id="catalogFilter" aria-label="Filter catalog"><option value="all">All books</option><option value="available">Available</option><option value="loaned">On loan</option></select></div><div class="table-wrap"><table><thead><tr><th>Book</th><th>Author</th><th>ISBN</th><th>Year</th><th>Status</th><th></th></tr></thead><tbody id="catalogTable"></tbody></table></div></section></section>
+
+      <section class="view" id="membersView"><div class="page-heading compact"><div><p class="eyebrow">Community</p><h1>Members</h1><p class="subheading">The readers who give your collection its purpose.</p></div><button class="button button-primary" data-action="add-member"><span>+</span> Register member</button></div><section class="panel table-panel"><div class="table-toolbar"><div class="search-box"><span>/</span><input id="memberSearch" type="search" placeholder="Search members"></div><span class="result-note" id="memberResultNote"></span></div><div class="table-wrap"><table><thead><tr><th>Member</th><th>Email</th><th>Phone</th><th>Member ID</th><th></th></tr></thead><tbody id="membersTable"></tbody></table></div></section></section>
+
+      <section class="view" id="loansView"><div class="page-heading compact"><div><p class="eyebrow">Circulation</p><h1>Loans</h1><p class="subheading">Keep every borrowed book accounted for.</p></div><button class="button button-primary" data-action="checkout"><span>+</span> Check out book</button></div><section class="panel table-panel"><div class="table-toolbar"><div class="filter-tabs" id="loanTabs"><button class="active" data-loan-filter="all">All</button><button data-loan-filter="active">Active</button><button data-loan-filter="overdue">Overdue</button><button data-loan-filter="returned">Returned</button></div></div><div class="table-wrap"><table><thead><tr><th>Book</th><th>Member</th><th>Checked out</th><th>Due date</th><th>Status</th><th></th></tr></thead><tbody id="loansTable"></tbody></table></div></section></section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="modalBackdrop"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><button class="modal-close" id="closeModal" aria-label="Close">x</button><p class="eyebrow" id="modalEyebrow">Library desk</p><h2 id="modalTitle">Add a book</h2><p class="modal-copy" id="modalCopy">Add a title to your collection.</p><form id="modalForm"><div id="formFields"></div><div class="modal-actions"><button type="button" class="button button-ghost" id="cancelModal">Cancel</button><button type="submit" class="button button-primary" id="submitModal">Save</button></div></form></div></div>
+  <div class="toast" id="toast"><span class="toast-mark">+</span><span id="toastMessage">Saved successfully.</span></div>
+  <script src="app.js"></script>
+</body>
+</html>
