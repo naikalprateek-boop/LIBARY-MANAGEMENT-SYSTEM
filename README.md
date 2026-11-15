@@ -1,36 +1,58 @@
 # Library Management System
 
-A professional, dependency-free Java 17 console application for managing books, members, checkouts, returns, and overdue loans.
-
-The project also includes a browser-based Libris dashboard in `index.html`, styled with `styles.css` and powered by `app.js`. The browser version is fully interactive and stores its demo data in `localStorage`.
+A library management project with a Java 17 console application and a full-stack Libris web application powered by Node.js, Express, and SQLite.
 
 ## Features
 
-- Persistent local storage in `library-data/`
+- Persistent SQLite storage in `library-data/libris.sqlite`
 - Add, list, search, and remove books
-- Register, list, and remove members
+- Register, edit, search, and remove members
+- Edit and manage books
 - Check books out and return them
-- Automatic due dates and overdue reporting
-- Input validation and clear operational messages
-- Seeded sample records on first launch
+- Automatic due dates, overdue reporting, and monthly checkout trends
+- Popular-title reports and CSV exports for books, members, and loans
+- Administrator and librarian roles
+- Hashed passwords, database-backed sessions, CSRF checks, and login rate limiting
+- Parameterized database operations and validated inputs
 
 ## Requirements
 
-- JDK 17 or newer
+- Node.js 20 or newer and npm (web application)
+- JDK 17 or newer (Java console application)
 
 ## Run
 
-### Browser dashboard
+### Full-stack web application
 
-Open `index.html` directly in a browser, or serve the folder locally:
+Install dependencies from the project root:
 
-```powershell
-python -m http.server 8080
+```sh
+npm install
 ```
 
-Then visit `http://localhost:8080`.
+Create a local environment file in PowerShell:
 
-The dashboard supports catalog search, member registration, book creation, checkout, returns, loan filters, and resettable sample data.
+```powershell
+Copy-Item .env.example .env
+```
+
+Edit `.env` before starting. Set a unique `ADMIN_EMAIL`, an administrator password of at least 12 characters and no more than 72 UTF-8 bytes, and a random `SESSION_SECRET` of at least 32 characters. Do not use the placeholder values or commit `.env`.
+
+Start Libris:
+
+```sh
+npm start
+```
+
+Open `http://localhost:3000` and sign in with the configured administrator credentials. The database and first administrator account are created automatically on first startup. The administrator can create librarian or additional administrator accounts in Team access.
+
+The web app supports catalog and member editing, checkout and returns, reports, search, and authenticated CSV exports. Records with loan history cannot be deleted so reports remain consistent.
+
+Before public deployment, configure HTTPS, plan database backups and account recovery, and add automated tests and operational monitoring.
+
+### Browser-only dashboard
+
+The original browser-only app remains in the project root (`index.html`, `styles.css`, and `app.js`). It stores data in `localStorage` and can be opened directly for the original demo.
 
 ### Java console application
 

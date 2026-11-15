@@ -1,22 +1,22 @@
 :root {
-  --ink: #182522;
-  --muted: #77817c;
-  --line: #e4e8e4;
-  --paper: #f8f9f6;
+  --ink: #20302d;
+  --muted: #707d77;
+  --line: #dce5df;
+  --paper: #f4f7f3;
   --white: #ffffff;
-  --sage: #dce9df;
-  --sage-strong: #82a88f;
-  --cream: #f4ebd5;
-  --yellow: #f5d986;
-  --blue: #dbe8f0;
-  --blue-strong: #80a8ba;
-  --coral: #f2ddd4;
-  --coral-strong: #c97f6d;
-  --sidebar: #f0f3ee;
-  --shadow: 0 18px 48px rgba(36, 52, 45, .06);
+  --sage: #dceee2;
+  --sage-strong: #4b896e;
+  --cream: #f5eccb;
+  --yellow: #e9bf54;
+  --blue: #dcecef;
+  --blue-strong: #4b8d97;
+  --coral: #f3ded7;
+  --coral-strong: #c96d56;
+  --sidebar: #ebf1eb;
+  --shadow: 0 14px 36px rgba(32, 48, 45, .075);
 }
 * { box-sizing: border-box; }
-body { margin: 0; background: var(--paper); color: var(--ink); font: 14px "DM Sans", sans-serif; }
+body { margin: 0; background: linear-gradient(145deg, #f8faf7 0%, var(--paper) 58%, #eff4f0 100%); color: var(--ink); font: 14px "DM Sans", sans-serif; }
 button, input, select { font: inherit; }
 button { cursor: pointer; }
 .app-shell { min-height: 100vh; display: flex; }
